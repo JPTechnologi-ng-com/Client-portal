@@ -1,27 +1,32 @@
-# Client Portal
+# React + TypeScript + Vite
 
-React 18 + Express + PostgreSQL client portal (admin and client roles, projects, invoices, documents, reports, OpenAI).
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-## Run locally
+Currently, two official plugins are available:
 
-Requires Node 20+ and Docker.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-```bash
-npm install
-cp apps/api/.env.example apps/api/.env
-npm run db:up
-npm run dev
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the Oxlint configuration
+
+If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+
+```json
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc"],
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  }
+}
 ```
 
-- Web: http://localhost:5173
-- API health check: http://localhost:4000/api/health
-
-## Structure
-
-- `apps/api` Express server (TypeScript)
-- `apps/web` React 18 app (Vite)
-- `packages/shared` code shared by both
-
-## Build phases
-
-0 Setup (done) · 1 Database · 2 Auth and roles · 3 Admin API · 4 Documents · 5 Dashboard and reports · 6 OpenAI · 7 CI and deploy
+See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
